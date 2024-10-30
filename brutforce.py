@@ -1,5 +1,6 @@
 import csv
 
+
 def read_file(filename):
     """Lit un fichier CSV et retourne les données sous forme de tuple de chaînes formatées."""
     datas = []
@@ -8,9 +9,8 @@ def read_file(filename):
         for data in reader:
             action = data["Actions #"]
             cost = float(data["Coût par action (en euros)"])
-            # Convertir le bénéfice en pourcentage en nombre décimal
-            benefit_percentage = float(data["Bénéfice (après 2 ans)"].replace('%', '').strip())
-            benefit = benefit_percentage / 100  # Convertir en nombre décimal
+            benefit_percentage = float(data["Bénéfice (après 2 ans)"].replace("%", "").strip())
+            benefit = benefit_percentage / 100
             datas.append((action, cost, benefit))
 
     return tuple(datas)
@@ -41,10 +41,8 @@ def go_buy(max_budget, datas):
 
 
 def main(max_budget, filename):
-    # Lire le fichier
     datas = read_file(filename)
     go_calculate(max_budget, datas)
-    
     """go_buy(max_budget, datas)"""
 
 
