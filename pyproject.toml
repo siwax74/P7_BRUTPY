@@ -1,0 +1,5 @@
+[tool.black]
+line-length = 119
+exclude = '''
+/(env|\.git|\.venv|__pycache__|\.pytest_cache)/
+'''
