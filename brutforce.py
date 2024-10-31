@@ -16,34 +16,49 @@ def read_file(filename):
     return tuple(datas)
 
 
-def go_calculate(max_budget, datas):
-    """Calcule le nombre d'actions à acheter pour maximiser le bénéfice avec un
-    budget donné, en utilisant les données fournies."""
-    print(datas)
-    max_benefit = 0
-    for action, cost, benefit in datas:
-        test = cost * benefit
-        max_benefit += test
-        print(f"{action}, {max_benefit}")
+def find_best_combination(
+    max_budget, datas, index=0, current_combination=[], best_combination={"total_benefit": 0, "actions": []}
+):
+    """Fonction récursive pour trouver la meilleure combinaison d'actions avec un budget donné."""
+    # Calculer le coût et le bénéfice total de la combinaison actuelle
+    total_cost = sum(cost for _, cost, _ in current_combination)
+    total_benefit = sum(cost * benefit for _, cost, benefit in current_combination)
 
+    # Vérifier si la combinaison actuelle est valide et meilleure que la meilleure trouvée
+    if total_cost <= max_budget and total_benefit > best_combination["total_benefit"]:
+        best_combination["total_benefit"] = total_benefit
+        best_combination["actions"] = current_combination[:]
 
-def go_buy(max_budget, datas):
-    """Calcule le budget restant après achats d'actions."""
-    for action, cost, benefit in datas:
-        if max_budget >= cost:
-            max_budget -= cost
-            print(f"Achat de l'action: {action}, Coût: {cost}")
-        else:
-            print(f"Pas assez de budget pour l'action: {action}, Coût: {cost}")
+    # Si toutes les actions ont été explorées, retourner
+    if index >= len(datas):
+        return
+    
+    # Essayer la combinaison avec et sans l'action actuelle
+    # 1. Inclure l'action actuelle
+    current_combination.append(datas[index])
+    find_best_combination(max_budget, datas, index + 1, current_combination, best_combination)
+    current_combination.pop()  # Retirer l'action pour explorer sans elle
+    # 2. Exclure l'action actuelle
+    find_best_combination(max_budget, datas, index + 1, current_combination, best_combination)
 
-    print(f"Budget restant: {max_budget}")
-    print("Finito")
+    return best_combination
 
 
 def main(max_budget, filename):
+    # Lire les données du fichier
     datas = read_file(filename)
-    go_calculate(max_budget, datas)
-    """go_buy(max_budget, datas)"""
+    # Initialiser le meilleur résultat
+    best_combination = {"total_benefit": 0, "actions": []}
+    # Trouver la meilleure combinaison
+    best_combination = find_best_combination(max_budget, datas)
+
+    # Afficher les résultats
+    print("Meilleure combinaison d'actions:")
+    for action in best_combination["actions"]:
+        action_name, cost, benefit = action
+        print(f"{action_name} - Coût: {cost:.2f} €, Bénéfice: {cost * benefit:.2f} €")
+    print(f"\nCoût total: {sum(cost for _, cost, _ in best_combination['actions']):.2f} €")
+    print(f"Bénéfice total après 2 ans: {best_combination['total_benefit']:.2f} €")
 
 
 if __name__ == "__main__":
