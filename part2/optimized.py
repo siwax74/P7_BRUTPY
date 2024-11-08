@@ -56,7 +56,6 @@ def knapsack_dp(max_budget: float, datas: Tuple[Tuple[str, float, float]]) -> Di
             selected_actions.append(datas[i-1])
             w -= costs[i-1]
 
-    # Calcul du bénéfice total
     total_benefit = dp[n][max_budget] / 100.0
     selected_actions.reverse() 
 
