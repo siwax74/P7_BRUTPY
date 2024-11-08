@@ -49,7 +49,7 @@ def knapsack_dp(max_budget: float, datas: Tuple[Tuple[str, float, float]]) -> Di
 def main(max_budget: float, filename: str) -> None:
     """Point d'entrée principal pour le programme."""
     datas = read_file(filename)
-
+    
     if not datas:
         print("Aucune donnée valide à traiter.")
         return
