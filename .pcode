@@ -1,0 +1,23 @@
+programme brutforce.py c'est
+début
+│
+├── Lire le fichier CSV
+│   │
+│   └── Récupérer les données des actions (coûts et bénéfices)
+│
+├── Initialiser le meilleur bénéfice à 0
+│
+├── Pour chaque combinaison possible d'actions
+│   │
+│   ├── Calculer le coût total de la combinaison
+│   ├── Si le coût total <= budget maximum
+│   │   ├── Calculer le bénéfice total de la combinaison
+│   │   └── Si le bénéfice total > meilleur bénéfice
+│   │       ├── Mettre à jour le meilleur bénéfice
+│   │       └── Enregistrer la combinaison d'actions
+│   │
+│   └── Continuer avec la prochaine combinaison
+│
+├── Afficher la meilleure combinaison et le bénéfice total
+│
+fin
