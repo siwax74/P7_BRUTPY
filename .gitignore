@@ -1,3 +1,7 @@
+# Ignorer les dossier de configuration
+*/env
+*/venv
+
 # Ignorer les fichiers de configuration
 *.env
 *.local
