@@ -1,4 +1,7 @@
-.env
-env/
-dataset1.csv
-dataset2.csv
+# Ignorer les fichiers de configuration
+*.env
+*.local
+
+# Ignorer les fichiers de cache
+.cache/
+*.cache
